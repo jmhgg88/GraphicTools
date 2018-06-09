@@ -23,8 +23,11 @@ public class HwcDumpLayerActivity extends Activity {
     private EditText mEditTextDumpFrameNum;
     private TextView mTextViewDstDumpDir;
     private String mHwcDir = null;
+    private GraphicToolsJni mGraphicToolsJni;
 
     private boolean startHwcDump() {
+        return mGraphicToolsJni.Operate(1);
+        /*
         if (mAndroidVersion.equals("Android P")) {
             System.setProperty("vendor.debug.gralloc_afbc", "0");
             System.setProperty("vendor.debug.gralloc_afbce", "0");
@@ -47,7 +50,7 @@ public class HwcDumpLayerActivity extends Activity {
             System.setProperty("vendor.debug.frame_dump_cnt", "1");
             mGU.dumpsys("SurfaceFlinger");
         }
-        return true;
+        return true;*/
     }
     private void showDstDumpPath() {
         mTextViewDstDumpDir.setText(mHwcDir);
@@ -109,7 +112,14 @@ public class HwcDumpLayerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hwc_dump_layer);
 
+        GraphicToolsJni mGraphicToolsJni = new GraphicToolsJni();
+        if (false == mGraphicToolsJni.Init()) {
+            Toast.makeText(HwcDumpLayerActivity.this, "GraphicToolsJni init fail",
+                    Toast.LENGTH_SHORT).show();
+            return ;
+        }
         mGU = new GraphicUtils();
         startDumpButton();
+        //mGraphicToolsJni.Destory(); destory when activity resume or destory, not onCreate
     }
 }

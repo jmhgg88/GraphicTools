@@ -5,16 +5,27 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.android.graphictools"
-        minSdkVersion 'P'
+        minSdkVersion 'O'
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            moduleName "GraphicTools_jni" //库名字
+            ldLibs "log", "z", "m" //用于JNI C++文件中打LOG
+            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
