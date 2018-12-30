@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.android.graphictools"
         minSdkVersion 'O'
@@ -11,11 +11,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        ndk {
-            moduleName "GraphicTools_jni" //库名字
-            ldLibs "log", "z", "m" //用于JNI C++文件中打LOG
-            abiFilters "armeabi", "armeabi-v7a", "x86"
-        }
+        //ndk {
+        //    moduleName "GraphicTools_jni" //库名字
+        //    ldLibs "log", "z", "m" //用于JNI C++文件中打LOG
+        //    abiFilters "armeabi", "armeabi-v7a", "x86"
+        //}
     }
     buildTypes {
         release {
@@ -31,10 +31,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
 }
